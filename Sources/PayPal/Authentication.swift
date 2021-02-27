@@ -18,7 +18,7 @@ public class Authentication{
         let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.authentication.rawValue)")
         return self.request.client.post(url, headers: self.request.headers) { (req) in
             req.headers.add(name: .contentType, value: "application/x-www-form-urlencoded")
-            try req.content.encode(["grant_type":"client_credentials"])
+            try req.content.encode(["grant_type":"client_credentials"], as: .urlEncodedForm)
         }.flatMapThrowing{ response in
             guard response.status == .ok else {
                 self.request.logger.debug("\(response.content)")
