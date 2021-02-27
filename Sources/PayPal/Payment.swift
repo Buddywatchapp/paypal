@@ -68,8 +68,9 @@ public struct PayPalPayment: Content {
     public let context: Context
     public let state: String?
     public let shipping_address: ShippingAddress?
+    public let links: [Link]?
     
-    public init(id: String? = nil, intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction], context: Context, state: String? = nil, shipping_address: ShippingAddress? = nil) {
+    public init(id: String? = nil, intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction], context: Context, state: String? = nil, shipping_address: ShippingAddress? = nil, links: [Link]? = nil) {
         self.id = id
         self.intent = intent
         self.redirect_urls = redirect_urls
@@ -78,7 +79,13 @@ public struct PayPalPayment: Content {
         self.context = context
         self.state = state
         self.shipping_address = shipping_address
+        self.links = links
     }
+}
+
+public struct Link: Content{
+    public let href: String
+    public let rel: String
 }
 
 public struct ExecutePayment: Content{
