@@ -69,7 +69,7 @@ public struct PayPalPayment: Content {
     let state: String?
     let shipping_address: ShippingAddress?
     
-    init(id: String? = nil, intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction], context: Context, state: String? = nil, shipping_address: ShippingAddress? = nil) {
+    public init(id: String? = nil, intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction], context: Context, state: String? = nil, shipping_address: ShippingAddress? = nil) {
         self.id = id
         self.intent = intent
         self.redirect_urls = redirect_urls
@@ -83,6 +83,10 @@ public struct PayPalPayment: Content {
 
 public struct ExecutePayment: Content{
     let payer_id: String
+    
+    public init(payer_id: String){
+        self.payer_id = payer_id
+    }
 }
 
 // MARK: - ShippingAddress
@@ -103,7 +107,12 @@ public struct Payer: Content {
 
 // MARK: - RedirectUrls
 public struct RedirectUrls: Content {
-    let return_url, cancel_url: String?
+    let return_url, cancel_url: String
+    
+    public init(return_url: String, cancel_url: String){
+        self.return_url = return_url
+        self.cancel_url = cancel_url
+    }
 }
 
 // MARK: - Transaction
@@ -111,28 +120,64 @@ public struct Transaction: Content {
     let amount: Amount
     let transaction_description: String?
     let item_list: ItemList
+    
+    public init(amount: Amount, transaction_description: String? = nil, item_list: ItemList){
+        self.amount = amount
+        self.transaction_description = transaction_description
+        self.item_list = item_list
+    }
 }
 
 // MARK: - Amount
 public struct Amount: Content {
-    let total, currency: String?
-    let details: Details?
+    let total, currency: String
+    let details: Details
+    
+    public init(total: String, currency: String, details: Details){
+        self.total = total
+        self.currency = currency
+        self.details = details
+    }
+    
 }
 
 // MARK: - Details
 public struct Details: Content {
     let subtotal, tax, shipping, handling_fee: String?
     let insurance, shipping_discount: String?
+    
+    public init(subtotal: String, tax: String, shipping: String? = nil, handling_fee: String? = nil, insurance: String? = nil, shipping_discount: String? = nil){
+        self.subtotal = subtotal
+        self.tax = tax
+        self.shipping = shipping
+        self.handling_fee = handling_fee
+        self.insurance = insurance
+        self.shipping_discount = shipping_discount
+    }
 }
 
 // MARK: - ItemList
 public struct ItemList: Content {
     let items: [Item]
+    
+    public init(items: [Item]){
+        self.items = items
+    }
 }
 
 // MARK: - Item
 public struct Item: Content {
     let name, sku, price, currency: String?
     let quantity, item_description, tax: String?
+    
+    public init(name: String, sku: String? = nil, price: String, currency: String, quantity: String, item_description: String? = nil, tax: String? = nil){
+        self.name = name
+        self.sku = sku
+        self.price = price
+        self.currency = currency
+        self.quantity = quantity
+        self.item_description = item_description
+        self.tax = tax
+    }
 }
 
