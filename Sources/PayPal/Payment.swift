@@ -76,7 +76,7 @@ public struct PayPalPayment: Content {
         self.redirect_urls = redirect_urls
         self.payer = payer
         self.transactions = transactions
-        self.context = context
+        self.application_context = context
         self.state = state
         self.shipping_address = shipping_address
         self.links = links
