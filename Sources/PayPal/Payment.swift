@@ -26,8 +26,8 @@ public class Payment{
                                   payer: payer,
                                   transactions: transactions,
                                   context: Context())
-            return self.request.client.post(url, headers: self.request.headers) { (request) in
-                try request.content.encode(p)
+            return self.request.client.post(url, headers: self.request.headers) { (req) in
+                try req.content.encode(p)
             }.flatMapThrowing{ response in
                 guard response.status == .ok else {
                     self.request.logger.debug("\(response.content)")
@@ -45,8 +45,8 @@ public class Payment{
             let t = "Bearer \(token.access_token)"
             self.request.headers.add(name: .authorization, value: t)
             let p = ExecutePayment(payer_id: payer_id)
-            return self.request.client.post(url, headers: self.request.headers) { (request) in
-                try request.content.encode(p)
+            return self.request.client.post(url, headers: self.request.headers) { (req) in
+                try req.content.encode(p)
             }.flatMapThrowing{ response in
                 guard response.status == .ok else {
                     self.request.logger.debug("\(response.content)")
