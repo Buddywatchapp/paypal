@@ -58,6 +58,7 @@ public class Payment{
     }
 }
 
+
 // MARK: - Payment
 public struct PayPalPayment: Content {
     public let id: String?
