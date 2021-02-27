@@ -104,7 +104,7 @@ public struct Context: Content {
 public struct Payer: Content {
     var payment_method = "paypal"
     
-    init(){}
+    public init(){}
 }
 
 // MARK: - RedirectUrls
