@@ -65,7 +65,7 @@ public struct PayPalPayment: Content {
     public let redirect_urls: RedirectUrls
     public let payer: Payer
     public let transactions: [Transaction]
-    public let context: Context
+    public let application_context: Context
     public let state: String?
     public let shipping_address: ShippingAddress?
     public let links: [Link]?
