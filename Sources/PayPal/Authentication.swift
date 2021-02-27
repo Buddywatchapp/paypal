@@ -14,7 +14,7 @@ public class Authentication{
         self.request = req
     }
     
-    public func token() throws -> EventLoopFuture<PayPal.Auth>{
+    func token() throws -> EventLoopFuture<PayPal.Auth>{
         let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.authentication.rawValue)")
         return self.request.client.post(url, headers: self.request.headers) { (request) in
             try request.content.encode(GrantType())
