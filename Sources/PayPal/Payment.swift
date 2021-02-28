@@ -15,7 +15,7 @@ public class Payment{
         self.request = req
     }
     
-    public func create(intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction]) throws -> EventLoopFuture<PayPalPayment>{
+    public func create(intent: String, redirect_urls: RedirectUrls, payer: Payer, transactions: [Transaction]) throws -> EventLoopFuture<PayPalResponse>{
         let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.payment.rawValue)")
         let auth = Authentication(self.request)
         return try auth.token().flatMap{ token in
@@ -33,12 +33,12 @@ public class Payment{
                     self.request.logger.debug("\(response.content)")
                     throw Abort(response.status)
                 }
-                return try response.content.decode(PayPalPayment.self)
+                return try response.content.decode(PayPalResponse.self)
             }
         }
     }
     
-    public func execute(payment_id: String, payer_id: String) throws -> EventLoopFuture<PayPalPayment>{
+    public func execute(payment_id: String, payer_id: String) throws -> EventLoopFuture<PayPalResponse>{
         let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.payment.rawValue)/\(payment_id)/execute")
         let auth = Authentication(self.request)
         return try auth.token().flatMap{ token in
@@ -52,10 +52,16 @@ public class Payment{
                     self.request.logger.debug("\(response.content)")
                     throw Abort(response.status)
                 }
-                return try response.content.decode(PayPalPayment.self)
+                return try response.content.decode(PayPalResponse.self)
             }
         }
     }
+}
+
+public struct PayPalResponse: Content{
+    public let id: String?
+    public let redirect_urls: RedirectUrls?
+    public let shipping_address: ShippingAddress?
 }
 
 
