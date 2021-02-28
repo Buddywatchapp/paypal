@@ -62,6 +62,7 @@ public struct PayPalResponse: Content{
     public let id: String?
     public let redirect_urls: RedirectUrls?
     public let shipping_address: ShippingAddress?
+    public let links: [Link]?
 }
 
 
