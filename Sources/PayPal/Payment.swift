@@ -62,11 +62,11 @@ public class Payment{
 // MARK: - Payment
 public struct PayPalPayment: Content {
     public let id: String?
-    public let intent: String
-    public let redirect_urls: RedirectUrls
-    public let payer: Payer
-    public let transactions: [Transaction]
-    public let application_context: Context
+    public let intent: String?
+    public let redirect_urls: RedirectUrls?
+    public let payer: Payer?
+    public let transactions: [Transaction]?
+    public let application_context: Context?
     public let state: String?
     public let shipping_address: ShippingAddress?
     public let links: [Link]?
