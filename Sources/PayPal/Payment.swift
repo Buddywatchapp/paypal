@@ -31,7 +31,7 @@ public class Payment{
             }.flatMapThrowing{ response in
                 guard response.status == .created else {
                     self.request.logger.debug("\(response.content)")
-                    throw Abort(response.status)
+                    throw Abort(response.status, reason: "\(response.content)")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
@@ -50,7 +50,7 @@ public class Payment{
             }.flatMapThrowing{ response in
                 guard response.status == .ok else {
                     self.request.logger.debug("\(response.content)")
-                    throw Abort(response.status)
+                    throw Abort(response.status, reason: "\(response.content)")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
