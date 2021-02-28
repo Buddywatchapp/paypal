@@ -29,7 +29,7 @@ public class Payment{
             return self.request.client.post(url, headers: self.request.headers) { (req) in
                 try req.content.encode(p)
             }.flatMapThrowing{ response in
-                guard response.status == .ok else {
+                guard response.status == .created else {
                     self.request.logger.debug("\(response.content)")
                     throw Abort(response.status)
                 }
