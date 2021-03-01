@@ -70,10 +70,10 @@ public struct Order: Content{
 }
 
 public struct PurchaseUnit: Content{
-    public let amount_breakdown: Amount
+    public let amount: Amount
     
-    public init(amount_breakdown: Amount){
-        self.amount_breakdown = amount_breakdown
+    public init(amount: Amount){
+        self.amount = amount
     }
 }
 
