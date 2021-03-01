@@ -61,10 +61,16 @@ public class Payment{
 public struct PayPalResponse: Content{
     public let id: String?
     public let redirect_urls: RedirectUrls?
-    public let shipping_address: ShippingAddress?
     public let links: [Link]?
+    public let transactions: [TransactionResponse]?
 }
 
+public struct TransactionResponse: Content {
+    public let item_list: ItemListResponse?
+}
+public struct ItemListResponse: Content {
+    public let shipping_address: ShippingAddress?
+}
 
 // MARK: - Payment
 public struct PayPalPayment: Content {
