@@ -29,8 +29,8 @@ public class PayPalOrder{
                 try req.content.encode(p)
             }.flatMapThrowing{ response in
                 guard response.status == .created else {
-                    self.request.logger.debug("\(response.content)")
-                    throw Abort(response.status, reason: "\(response.content)")
+                    self.request.logger.debug("\(response)")
+                    throw Abort(response.status, reason: "\(response)")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
@@ -45,8 +45,8 @@ public class PayPalOrder{
             self.request.headers.add(name: .authorization, value: t)
             return self.request.client.post(url, headers: self.request.headers).flatMapThrowing{ response in
                 guard response.status == .ok else {
-                    self.request.logger.debug("\(response.content)")
-                    throw Abort(response.status, reason: "\(response.content)")
+                    self.request.logger.debug("\(response)")
+                    throw Abort(response.status, reason: "\(response)")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
