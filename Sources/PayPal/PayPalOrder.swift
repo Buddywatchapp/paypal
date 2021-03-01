@@ -127,7 +127,17 @@ public struct PayPalResponse: Content{
     public let id: String
     public let status: String
     public let links: [Link]
+    public let payer: Payer
     public let purchase_units: [PurchaseUnitResponse]
+}
+
+public struct Payer: Content{
+    public let name: Name
+}
+
+public struct Name: Content{
+    public let given_name: String
+    public let surname: String
 }
 
 public struct Link: Content{
