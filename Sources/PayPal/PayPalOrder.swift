@@ -139,8 +139,8 @@ public struct PayPalResponse: Content{
     public let id: String
     public let status: String
     public let links: [Link]
-    public let payer: Payer
-    public let purchase_units: [PurchaseUnitResponse]
+    public let payer: Payer?
+    public let purchase_units: [PurchaseUnitResponse]?
 }
 
 public struct Payer: Content{
