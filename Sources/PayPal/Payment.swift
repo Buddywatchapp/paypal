@@ -61,7 +61,7 @@ public class Payment{
 public struct PayPalResponse: Content{
     public let id: String?
     public let redirect_urls: RedirectUrls?
-    public let transactions: [Transaction]?
+    public let shipping_address: ShippingAddress?
     public let links: [Link]?
 }
 
@@ -132,9 +132,9 @@ public struct RedirectUrls: Content {
 
 // MARK: - Transaction
 public struct Transaction: Content {
-    public let amount: Amount?
+    public let amount: Amount
     public let transaction_description: String?
-    public let item_list: ItemList?
+    public let item_list: ItemList
     
     public init(amount: Amount, transaction_description: String? = nil, item_list: ItemList){
         self.amount = amount
