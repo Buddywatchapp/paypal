@@ -9,5 +9,5 @@ import Foundation
 
 enum Endpoints:String{
     case authentication = "/v1/oauth2/token"
-    case payment = "/v1/payments/payment"
+    case orders = "/v2/checkout/orders"
 }

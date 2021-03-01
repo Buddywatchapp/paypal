@@ -3,11 +3,11 @@ import Vapor
 public class PayPal{
     
     public var authentication: Authentication
-    public var payment: Payment
+    public var order: PayPalOrder
     
     init(_ req: Request) {
         self.authentication = Authentication(req)
-        self.payment = Payment(req)
+        self.order = PayPalOrder(req)
     }
 
     struct Auth: Content {
@@ -18,7 +18,7 @@ public class PayPal{
     }
     
     public enum Environment: String{
-        case sandbox = "https://api-m.sandbox.paypal.com"
-        case live = "https://api-m.paypal.com"
+        case sandbox = "https://api.sandbox.paypal.com"
+        case live = "https://api.paypal.com"
     }
 }
