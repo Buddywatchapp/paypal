@@ -136,16 +136,16 @@ public struct Link: Content{
 }
 
 public struct PurchaseUnitResponse: Content {
-    let shipping: Shipping?
+    public let shipping: Shipping?
 }
 
 // MARK: - Shipping
 public struct Shipping: Content{
-    let address: Address?
+    public let address: Address?
 }
 
 // MARK: - Address
 public struct Address: Content{
-    let addressLine1, addressLine2, adminArea2, adminArea1: String?
-    let postalCode, countryCode: String?
+    public let addressLine1, addressLine2, adminArea2, adminArea1: String?
+    public let postalCode, countryCode: String?
 }
