@@ -77,7 +77,19 @@ public struct PurchaseUnit: Content{
     }
 }
 
-public struct Amount: Content {
+public struct Amount: Content{
+    public let value: String
+    public let currency_code: String
+    public let breakdown: Breakdown
+    
+    public init(value: String, currency_code: String, breakdown: Breakdown){
+        self.value = value
+        self.currency_code = currency_code
+        self.breakdown = breakdown
+    }
+}
+
+public struct Breakdown: Content {
     public let item_total: Money
     public let discount: Money
     
