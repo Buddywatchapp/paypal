@@ -90,8 +90,8 @@ public struct PayPalPayment: Content {
 }
 
 public struct Link: Content{
-    public let href: String?
-    public let rel: String?
+    public let href: String
+    public let rel: String
 }
 
 public struct ExecutePayment: Content{
@@ -122,7 +122,7 @@ public struct Payer: Content {
 
 // MARK: - RedirectUrls
 public struct RedirectUrls: Content {
-    public let return_url, cancel_url: String?
+    public let return_url, cancel_url: String
     
     public init(return_url: String, cancel_url: String){
         self.return_url = return_url
@@ -145,8 +145,8 @@ public struct Transaction: Content {
 
 // MARK: - Amount
 public struct Amount: Content {
-    public let total, currency: String?
-    public let details: Details?
+    public let total, currency: String
+    public let details: Details
     
     public init(total: String, currency: String, details: Details){
         self.total = total
@@ -173,7 +173,7 @@ public struct Details: Content {
 
 // MARK: - ItemList
 public struct ItemList: Content {
-    public let items: [Item]?
+    public let items: [Item]
     public let shipping_address: ShippingAddress?
     
     public init(items: [Item], shipping_address: ShippingAddress? = nil){
