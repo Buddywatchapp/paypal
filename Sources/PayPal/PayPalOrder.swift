@@ -170,6 +170,6 @@ public struct Shipping: Content{
 
 // MARK: - Address
 public struct Address: Content{
-    public let addressLine1, addressLine2, adminArea2, adminArea1: String?
-    public let postalCode, countryCode: String?
+    public let address_line_1, address_line_2, admin_area_2, admin_area_1: String?
+    public let postal_code, country_code: String?
 }
