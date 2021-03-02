@@ -18,7 +18,7 @@ public class PayPal{
     }
     
     public enum Environment: String{
-        case sandbox = "https://api.sandbox.paypal.com"
-        case live = "https://api.paypal.com"
+        case sandbox = "https://api-m.sandbox.paypal.com"
+        case live = "https://api-m.paypal.com"
     }
 }
