@@ -20,7 +20,9 @@ public class PayPalOrder{
         let auth = Authentication(self.request)
         return try auth.token().flatMap{ token in
             let t = "Bearer \(token.access_token)"
+            self.request.headers = HTTPHeaders([])
             self.request.headers.add(name: .authorization, value: t)
+            self.request.headers.add(name: .contentType, value: "application/json")
             let p = Order(intent: intent,
                           purchase_units: purchase_units,
                           items: items,
@@ -30,7 +32,10 @@ public class PayPalOrder{
             }.flatMapThrowing{ response in
                 guard response.status == .created else {
                     self.request.logger.debug("\(response)")
-                    throw Abort(response.status, reason: "\(response)")
+                    guard let body = response.body else {
+                        throw Abort(response.status)
+                    }
+                    throw Abort(response.status, reason: "\(String(buffer: body))")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
@@ -42,13 +47,17 @@ public class PayPalOrder{
         let auth = Authentication(self.request)
         return try auth.token().flatMap{ token in
             let t = "Bearer \(token.access_token)"
+            self.request.headers = HTTPHeaders([])
             self.request.headers.add(name: .authorization, value: t)
             return self.request.client.post(url, headers: self.request.headers){ r in
                 r.headers.add(name: .contentType, value: "application/json")
             }.flatMapThrowing{ response in
                 guard response.status == .created else {
                     self.request.logger.debug("\(response)")
-                    throw Abort(response.status, reason: "\(response)")
+                    guard let body = response.body else {
+                        throw Abort(response.status)
+                    }
+                    throw Abort(response.status, reason: "\(String(buffer: body))")
                 }
                 return try response.content.decode(PayPalResponse.self)
             }
