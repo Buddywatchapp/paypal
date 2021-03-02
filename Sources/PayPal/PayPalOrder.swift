@@ -124,11 +124,13 @@ public struct Item: Content{
     public let name: String
     public let unit_amount: Money
     public let quantity: String
+    public let description: String?
     
-    public init(name: String, unit_amount: Money, quantity: String){
+    public init(name: String, unit_amount: Money, quantity: String, description: String? = nil){
         self.name = name
         self.unit_amount = unit_amount
         self.quantity = quantity
+        self.description = description
     }
 }
 
