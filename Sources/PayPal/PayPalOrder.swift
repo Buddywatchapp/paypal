@@ -43,7 +43,9 @@ public class PayPalOrder{
         return try auth.token().flatMap{ token in
             let t = "Bearer \(token.access_token)"
             self.request.headers.add(name: .authorization, value: t)
-            return self.request.client.post(url, headers: self.request.headers).flatMapThrowing{ response in
+            return self.request.client.post(url, headers: self.request.headers){ r in
+                try r.content.encode("{}", as: .json)
+            }.flatMapThrowing{ response in
                 guard response.status == .created else {
                     self.request.logger.debug("\(response)")
                     throw Abort(response.status, reason: "\(response)")
