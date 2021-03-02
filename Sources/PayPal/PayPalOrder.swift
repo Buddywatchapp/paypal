@@ -37,13 +37,15 @@ public class PayPalOrder{
         }
     }
     
-    public func capture(payment_id: String, payer_id: String) throws -> EventLoopFuture<PayPalResponse>{
-        let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.orders.rawValue)/\(payment_id)/capture")
+    public func capture(payment_id: String, capture: Capture) throws -> EventLoopFuture<PayPalResponse>{
+        let url = URI(string: "\(self.request.application.paypal.url)\(Endpoints.authorization.rawValue)/\(payment_id)/capture")
         let auth = Authentication(self.request)
         return try auth.token().flatMap{ token in
             let t = "Bearer \(token.access_token)"
             self.request.headers.add(name: .authorization, value: t)
-            return self.request.client.post(url, headers: self.request.headers).flatMapThrowing{ response in
+            return self.request.client.post(url, headers: self.request.headers){ r in
+                try r.content.encode(capture)
+            }.flatMapThrowing{ response in
                 guard response.status == .ok else {
                     self.request.logger.debug("\(response)")
                     throw Abort(response.status, reason: "\(response)")
@@ -54,6 +56,13 @@ public class PayPalOrder{
     }
 }
 
+public struct Capture: Content{
+    public let amount: Money
+    
+    public init( amount: Money ){
+        self.amount = amount
+    }
+}
 
 public struct Order: Content{
     public let intent: String
