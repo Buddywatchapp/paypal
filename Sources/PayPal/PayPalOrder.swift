@@ -25,7 +25,6 @@ public class PayPalOrder{
             self.request.headers.add(name: .contentType, value: "application/json")
             let p = Order(intent: intent,
                           purchase_units: purchase_units,
-                          items: items,
                           application_context: application_context)
             return self.request.client.post(url, headers: self.request.headers) { (req) in
                 try req.content.encode(p)
@@ -69,22 +68,22 @@ public class PayPalOrder{
 public struct Order: Content{
     public let intent: String
     public let purchase_units: [PurchaseUnit]
-    public let items: [Item]
     public let application_context: ApplicationContext
     
-    public init(intent: String, purchase_units: [PurchaseUnit], items: [Item], application_context: ApplicationContext) {
+    public init(intent: String, purchase_units: [PurchaseUnit], application_context: ApplicationContext) {
         self.intent = intent
         self.purchase_units = purchase_units
-        self.items = items
         self.application_context = application_context
     }
 }
 
 public struct PurchaseUnit: Content{
     public let amount: Amount
-    
-    public init(amount: Amount){
+    public let items: [Item]
+
+    public init(amount: Amount, items:[Item]){
         self.amount = amount
+        self.items = items
     }
 }
 
